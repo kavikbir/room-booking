@@ -1013,11 +1013,44 @@ const CONFIG = {
 };
 
 const ROOMS = [
-  { id: "std", name: "Single Room", icon: "🛏️", price: 1200, total: 6, cap: 1, tags: ["Single Bed", "Cooler/Fan", "Attached Bath", "TV"] },
-  { id: "dlx", name: "Double Room (AC)", icon: "❄️", price: 1800, total: 5, cap: 2, tags: ["Double Bed", "Air Conditioned", "Free Wi-Fi", "Hot Water", "TV"] },
-  { id: "fam", name: "Family Suite", icon: "👨‍👩‍👧‍👦", price: 2800, total: 3, cap: 5, tags: ["AC", "2 Queen Beds", "Sofa Seating", "Wi-Fi"] },
-  { id: "dor", name: "Dormitory Bed", icon: "🛌", price: 500, total: 10, cap: 1, tags: ["Personal Locker", "Shared Bath", "Budget Choice"] }
+  { id: "std", name: "Single Room", icon: "🛏️", price: 1200, total: 10, cap: 1, tags: ["Single Bed", "Cooler/Fan", "Attached Bath", "TV"] },
+  { id: "dlx", name: "Double Room (AC)", icon: "❄️", price: 1800, total: 10, cap: 2, tags: ["Double Bed", "Air Conditioned", "Free Wi-Fi", "Hot Water", "TV"] }
 ];
+
+/* DYNAMIC BOOKING & INVENTORY STORE */
+const store = {
+  get() {
+    try { return JSON.parse(localStorage.getItem("acta_bookings") || "[]"); }
+    catch (e) { return []; }
+  },
+  add(b) {
+    try {
+      const a = this.get();
+      a.push(b);
+      localStorage.setItem("acta_bookings", JSON.stringify(a));
+    } catch (e) {}
+  }
+};
+
+function getAvailCount(room) {
+  if (!state.ci || !state.co) return room.total;
+  let maxOccupied = 0;
+  const bookings = store.get();
+  
+  // Check each night in checkin..checkout
+  for (let d = new Date(state.ci); d < state.co; d.setDate(d.getDate() + 1)) {
+    let dayOccupied = 0;
+    bookings.forEach(b => {
+      const bCi = new Date(b.ci);
+      const bCo = new Date(b.co);
+      if (d >= bCi && d < bCo && b.rooms && b.rooms[room.id]) {
+        dayOccupied += b.rooms[room.id];
+      }
+    });
+    if (dayOccupied > maxOccupied) maxOccupied = dayOccupied;
+  }
+  return Math.max(0, room.total - maxOccupied);
+}
 
 const MON = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -1237,9 +1270,19 @@ function renderRooms() {
   $("roomSubTitle").textContent = `${formatDateStr(state.ci)} → ${formatDateStr(state.co)} (${getNightsCount()} Nights)`;
   
   $("roomsList").innerHTML = ROOMS.map(r => {
+    const avail = getAvailCount(r);
     const qty = state.selectedRooms[r.id] || 0;
+    const isSoldOut = avail === 0;
+    
+    let availBadgeText = `<span class="avail-badge" style="color:var(--primary);">✓ ${avail} of ${r.total} available</span>`;
+    if (isSoldOut) {
+      availBadgeText = `<span class="avail-badge" style="color:#ef4444;">❌ Sold out for selected dates</span>`;
+    } else if (avail <= 3) {
+      availBadgeText = `<span class="avail-badge" style="color:#f59e0b;">🔥 Only ${avail} room(s) left!</span>`;
+    }
+
     return `
-      <div class="room-card ${qty > 0 ? 'selected' : ''}" data-roomid="${r.id}">
+      <div class="room-card ${qty > 0 ? 'selected' : ''} ${isSoldOut ? 'opacity-50' : ''}" data-roomid="${r.id}">
         <div class="room-icon">${r.icon}</div>
         <div class="room-info">
           <div class="room-title">${r.name}</div>
@@ -1247,14 +1290,15 @@ function renderRooms() {
           <div class="tag-list">
             ${r.tags.map(t => `<span class="tag">${t}</span>`).join('')}
           </div>
+          <div style="margin-top:4px;">${availBadgeText}</div>
         </div>
         <div class="room-price-col">
           <div class="price-tag">${fmt(r.price)}</div>
           <div class="price-unit">per night</div>
           <div class="qty-control">
-            <button class="qty-btn" data-action="minus" onclick="changeRoomQty('${r.id}', -1, event)">-</button>
+            <button class="qty-btn" data-action="minus" onclick="changeRoomQty('${r.id}', -1, event)" ${qty <= 0 ? 'disabled' : ''}>-</button>
             <span style="font-weight:700; width:20px; text-align:center;">${qty}</span>
-            <button class="qty-btn" data-action="plus" onclick="changeRoomQty('${r.id}', 1, event)">+</button>
+            <button class="qty-btn" data-action="plus" onclick="changeRoomQty('${r.id}', 1, event)" ${qty >= avail ? 'disabled' : ''}>+</button>
           </div>
         </div>
       </div>
@@ -1266,8 +1310,10 @@ function renderRooms() {
 
 function changeRoomQty(roomId, delta, e) {
   if (e) e.stopPropagation();
+  const room = ROOMS.find(x => x.id === roomId);
+  const avail = getAvailCount(room);
   const current = state.selectedRooms[roomId] || 0;
-  const next = Math.max(0, current + delta);
+  const next = Math.max(0, Math.min(avail, current + delta));
   state.selectedRooms[roomId] = next;
   renderRooms();
 }
@@ -1397,6 +1443,16 @@ function sendWhatsAppRequest() {
   const ownerNum = formatPhoneForWhatsApp($("ownerPhoneNum").value);
   const refId = "ACTA-" + Date.now().toString(36).toUpperCase().slice(-6);
   state.lastBookingRef = refId;
+
+  // Save booking to localStorage for dynamic inventory deduction
+  store.add({
+    ref: refId,
+    ci: +state.ci,
+    co: +state.co,
+    rooms: { ...state.selectedRooms },
+    name: $("guestName").value,
+    phone: $("guestPhone").value
+  });
 
   const msgText = buildWhatsAppMessage(refId);
   const waUrl = `https://wa.me/${ownerNum}?text=${encodeURIComponent(msgText)}`;
