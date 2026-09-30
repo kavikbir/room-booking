@@ -899,34 +899,8 @@ main {
       <div class="pane-title">Review &amp; Redirect to Owner WhatsApp</div>
       <div class="pane-desc">Your booking details and automated payment invoice request will be sent directly to the owner on WhatsApp (<strong>8130859152</strong>).</div>
 
+      <!-- Bill Summary Card -->
       <div class="bill-summary" id="billSummaryBox"></div>
-
-      <!-- Automated WhatsApp & Payment QR Card -->
-      <div class="whatsapp-box">
-        <div class="whatsapp-box-title">
-          <span>💬 Instant WhatsApp Confirmation &amp; QR Payment Request</span>
-        </div>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">
-          Instead of direct online gateway charges, click below to open owner WhatsApp (+91 81308 59152) with auto-generated booking details, ask for any extra info, and request instant QR payment confirmation.
-        </p>
-
-        <div style="margin-top: 14px;">
-          <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 4px;">Owner WhatsApp Number</label>
-          <input type="text" class="form-control" id="ownerPhoneNum" value="8130859152" style="max-width: 300px; font-weight: 700;">
-        </div>
-
-        <div class="qr-flex">
-          <div>
-            <img id="upiQrCodeImg" class="qr-code-img" src="" alt="Payment UPI QR Code">
-          </div>
-          <div>
-            <div style="font-weight: 800; font-size: 1rem; color: var(--text-main);">Instant Payment QR Code</div>
-            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Scan with Google Pay, PhonePe, Paytm or BHIM</div>
-            <div style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-top: 6px;" id="upiIdDisplay">UPI: 8130859152@ybl</div>
-            <a id="directUpiBtn" href="#" class="btn btn-outline" style="padding: 6px 14px; font-size: 0.85rem; margin-top: 8px;">Pay via UPI App</a>
-          </div>
-        </div>
-      </div>
 
       <div class="nav-buttons">
         <button class="btn btn-outline" onclick="goStep(3)">← Edit Details</button>
@@ -1397,13 +1371,6 @@ function prepareStep4Summary() {
   `;
 
   $("billSummaryBox").innerHTML = html;
-
-  // Generate Payment QR via API
-  const upiUrl = `upi://pay?pa=${CONFIG.upiId}&pn=${encodeURIComponent(CONFIG.hotel)}&am=${bill.advanceReq}&cu=INR`;
-  const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
-  $("upiQrCodeImg").src = qrApi;
-  $("directUpiBtn").href = upiUrl;
-  $("upiIdDisplay").textContent = `UPI ID: ${CONFIG.upiId} (Advance: ${fmt(bill.advanceReq)})`;
 }
 
 /* WHATSAPP AUTOMATED MESSAGE GENERATION & REDIRECT */
@@ -1440,7 +1407,7 @@ ${roomsText}
 }
 
 function sendWhatsAppRequest() {
-  const ownerNum = formatPhoneForWhatsApp($("ownerPhoneNum").value);
+  const ownerNum = formatPhoneForWhatsApp(CONFIG.defaultPhone);
   const refId = "ACTA-" + Date.now().toString(36).toUpperCase().slice(-6);
   state.lastBookingRef = refId;
 
@@ -1469,7 +1436,7 @@ function sendWhatsAppRequest() {
 }
 
 function reOpenWhatsApp() {
-  const ownerNum = formatPhoneForWhatsApp($("ownerPhoneNum").value);
+  const ownerNum = formatPhoneForWhatsApp(CONFIG.defaultPhone);
   const msgText = buildWhatsAppMessage(state.lastBookingRef);
   window.open(`https://wa.me/${ownerNum}?text=${encodeURIComponent(msgText)}`, "_blank");
 }
