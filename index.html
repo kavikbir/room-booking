@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Arjun Complex Transit Accommodation — Book Your Stay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-main: #f4f7f6;
+  --bg-card: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --primary: #0d9488;
+  --primary-hover: #0f766e;
+  --primary-light: #ccfbf1;
+  --accent: #f59e0b;
+  --accent-light: #fef3c7;
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1da851;
+  --border: #e2e8f0;
+  --border-focus: #0d9488;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 30px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+[data-theme="dark"] {
+  --bg-main: #0b1319;
+  --bg-card: #152028;
+  --bg-glass: rgba(21, 32, 40, 0.88);
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --primary: #14b8a6;
+  --primary-hover: #2dd4bf;
+  --primary-light: rgba(20, 184, 166, 0.15);
+  --accent: #fbbf24;
+  --accent-light: rgba(251, 191, 36, 0.15);
+  --border: #263542;
+  --border-focus: #14b8a6;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header & Top Bar */
+.top-bar {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--primary), #0284c7);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-weight: 800;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+}
+.brand-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Auth Pill Button */
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 6px 14px 6px 8px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.user-pill:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.icon-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+}
+.icon-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.95), rgba(3, 105, 161, 0.9)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80') center/cover;
+  color: white;
+  padding: 48px 20px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.15) 0%, transparent 70%);
+}
+.hero-content {
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.hero p {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  opacity: 0.92;
+  margin-bottom: 24px;
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.badge-chip {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Main Container */
+main {
+  max-width: 920px;
+  margin: -48px auto 40px;
+  padding: 0 16px;
+  position: relative;
+  z-index: 10;
+}
+
+.main-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Step Wizard Navigation */
+.steps-wizard {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 32px;
+  padding: 0 10px;
+}
+.steps-wizard::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 30px;
+  right: 30px;
+  height: 3px;
+  background: var(--border);
+  z-index: 1;
+}
+.step-item {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.step-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+.step-item.active .step-num {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+.step-item.active .step-label {
+  color: var(--primary);
+}
+.step-item.completed .step-num {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Panes */
+.pane {
+  display: none;
+  animation: fadeIn 0.35s ease forwards;
+}
+.pane.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pane-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.pane-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+/* Calendar Styling */
+.cal-container {
+  max-width: 440px;
+  margin: 0 auto;
+  background: var(--bg-main);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.cal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.cal-header button {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+.cal-header button:hover:not(:disabled) {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.dow-cell {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding: 6px 0;
+}
+.day-btn {
+  aspect-ratio: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.day-btn:hover:not(:disabled) {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.day-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.day-btn.today {
+  outline: 2px dashed var(--primary);
+}
+.day-btn.in-range {
+  background: var(--primary-light);
+  border-radius: 0;
+  color: var(--primary);
+}
+.day-btn.selected {
+  background: var(--primary) !important;
+  color: white !important;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(13, 148, 136, 0.4);
+}
+
+.date-picker-summary {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.date-box {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.date-box label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: block;
+}
+.date-box span {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.nights-badge {
+  text-align: center;
+  margin-top: 12px;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.95rem;
+  min-height: 24px;
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn:hover:not(:disabled) {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.25);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover:not(:disabled) {
+  background: var(--bg-main);
+  border-color: var(--text-muted);
+}
+.btn-whatsapp {
+  background: var(--whatsapp);
+  color: white;
+  width: 100%;
+  font-size: 1.05rem;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+}
+.btn-whatsapp:hover {
+  background: var(--whatsapp-hover);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.4);
+}
+
+/* Rooms Listing */
+.rooms-grid {
+  display: grid;
+  gap: 16px;
+}
+.room-card {
+  display: flex;
+  gap: 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: var(--bg-card);
+  align-items: center;
+}
+.room-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.room-card.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.room-icon {
+  font-size: 2rem;
+  width: 68px;
+  height: 68px;
+  background: var(--bg-main);
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.room-info { flex: 1; }
+.room-title { font-size: 1.1rem; font-weight: 700; }
+.room-capacity { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.tag {
+  background: var(--bg-main);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 600;
+}
+.avail-badge { font-size: 0.8rem; font-weight: 700; color: #ef4444; }
+.room-price-col { text-align: right; flex-shrink: 0; }
+.price-tag { font-size: 1.25rem; font-weight: 800; color: var(--primary); }
+.price-unit { font-size: 0.75rem; color: var(--text-muted); }
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  background: var(--bg-card);
+  color: var(--primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.qty-btn:hover { background: var(--primary); color: white; }
+
+/* Forms */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+.form-control.is-invalid {
+  border-color: #ef4444;
+}
+
+/* Payment & Summary Preview Card */
+.bill-summary {
+  background: var(--bg-main);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+}
+.bill-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.95rem;
+}
+.bill-row.total {
+  border-top: 2px dashed var(--border);
+  margin-top: 10px;
+  padding-top: 12px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--primary);
+}
+
+.whatsapp-box {
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.08), rgba(13, 148, 136, 0.08));
+  border: 2px solid rgba(37, 211, 102, 0.3);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.whatsapp-box-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #15803d;
+  margin-bottom: 8px;
+}
+.qr-flex {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.qr-code-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  border: 4px solid white;
+  box-shadow: var(--shadow-md);
+}
+
+/* Google Auth Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  max-width: 440px;
+  width: 100%;
+  padding: 32px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.modal-backdrop.open .modal-card {
+  transform: translateY(0);
+}
+
+.google-btn {
+  background: #ffffff;
+  color: #3c4043;
+  border: 1px solid #dadce0;
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  margin: 20px 0 12px;
+}
+.google-btn:hover {
+  background: #f8f9fa;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-color: #d2e3fc;
+}
+
+.info-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .steps-wizard { padding: 0; }
+  .step-label { font-size: 0.72rem; }
+  .room-card { flex-direction: column; text-align: center; }
+  .room-price-col { width: 100%; text-align: center; margin-top: 12px; }
+  .qty-control { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav class="top-bar">
+  <a href="#" class="brand">
+    <div class="brand-logo">A</div>
+    <div>
+      <div class="brand-title">Arjun Complex</div>
+      <div class="brand-subtitle">Transit Accommodation</div>
+    </div>
+  </a>
+  <div class="top-actions">
+    <button class="user-pill" id="userAuthBtn" onclick="toggleAuthModal()">
+      <div class="user-avatar" id="headerAvatar">?</div>
+      <span id="headerUserName">Sign In</span>
+    </button>
+    <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="hero">
+  <div class="hero-content">
+    <h1>Arjun Complex Transit Accommodation</h1>
+    <p>Clean, comfortable &amp; affordable stays for travellers on the move</p>
+    <div class="badges">
+      <span class="badge-chip">❄️ AC Rooms</span>
+      <span class="badge-chip">📶 Free High-Speed Wi-Fi</span>
+      <span class="badge-chip">⏰ 24/7 Check-in</span>
+      <span class="badge-chip">🅿️ Free Parking</span>
+      <span class="badge-chip">📍 Near Transit Hub</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="main-card">
+    <!-- Wizard Progress -->
+    <div class="steps-wizard">
+      <div class="step-item active" id="stepIndicator1" onclick="goStep(1)">
+        <div class="step-num">1</div>
+        <div class="step-label">Dates</div>
+      </div>
+      <div class="step-item" id="stepIndicator2" onclick="goStep(2)">
+        <div class="step-num">2</div>
+        <div class="step-label">Room</div>
+      </div>
+      <div class="step-item" id="stepIndicator3" onclick="goStep(3)">
+        <div class="step-num">3</div>
+        <div class="step-label">Details</div>
+      </div>
+      <div class="step-item" id="stepIndicator4" onclick="goStep(4)">
+        <div class="step-num">4</div>
+        <div class="step-label">WhatsApp Pay</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: DATES -->
+    <section class="pane active" id="pane1">
+      <div class="pane-title">Select stay dates</div>
+      <div class="pane-desc">Tap check-in date first, then pick check-out date.</div>
+      
+      <div class="cal-container">
+        <div class="cal-header">
+          <button id="prevMonthBtn">←</button>
+          <span id="monthYearTitle">Month Year</span>
+          <button id="nextMonthBtn">→</button>
+        </div>
+        <div class="cal-grid" id="dowGrid"></div>
+        <div class="cal-grid" id="daysGrid"></div>
+      </div>
+
+      <div class="date-picker-summary">
+        <div class="date-box">
+          <label>Check-in</label>
+          <span id="checkInText">Select Date</span>
+        </div>
+        <div class="date-box">
+          <label>Check-out</label>
+          <span id="checkOutText">Select Date</span>
+        </div>
+      </div>
+
+      <div class="nights-badge" id="nightsBadge"></div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-outline" onclick="clearDates()">Clear Dates</button>
+        <button class="btn" id="toStep2Btn" disabled onclick="goStep(2)">Select Room &amp; Options →</button>
+      </div>
+    </section>
+
+    <!-- STEP 2: ROOMS -->
+    <section class="pane" id="pane2">
+      <div class="pane-title">Choose rooms</div>
+      <div class="pane-desc" id="roomSubTitle">Available rooms for your stay</div>
+      
+      <div class="rooms-grid" id="roomsList"></div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-outline" onclick="goStep(1)">← Change Dates</button>
+        <button class="btn" id="toStep3Btn" disabled onclick="goStep(3)">Guest Information →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: GUEST DETAILS -->
+    <section class="pane" id="pane3">
+      <div class="pane-title">Guest details &amp; ID Proof</div>
+      <div class="pane-desc">Please enter guest details for verification.</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" class="form-control" id="guestName" placeholder="As per Govt ID">
+        </div>
+        <div class="form-group">
+          <label>Mobile Number (WhatsApp) *</label>
+          <input type="tel" class="form-control" id="guestPhone" maxlength="10" placeholder="10-digit mobile number">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" class="form-control" id="guestEmail" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label>Total Guests *</label>
+          <select class="form-control" id="guestCount"></select>
+        </div>
+        <div class="form-group">
+          <label>Reason of Stay *</label>
+          <select class="form-control" id="stayReason">
+            <option value="">Select Reason...</option>
+            <option>Transit / Travelling</option>
+            <option>Business</option>
+            <option>Medical</option>
+            <option>Tourism</option>
+            <option>Family Function</option>
+            <option>Exam / Interview</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ID Proof Type *</label>
+          <select class="form-control" id="idType">
+            <option value="">Select ID Type...</option>
+            <option>Aadhaar Card</option>
+            <option>Driving Licence</option>
+            <option>Voter ID</option>
+            <option>Passport</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ID Number *</label>
+          <input type="text" class="form-control" id="idNumber" placeholder="Enter ID proof number">
+        </div>
+        <div class="form-group">
+          <label>Expected Arrival Time</label>
+          <input type="time" class="form-control" id="etaTime" value="14:00">
+        </div>
+        <div class="form-group full">
+          <label>Special Requests / Notes</label>
+          <textarea class="form-control" id="specialNotes" rows="2" placeholder="Early check-in, ground floor room, extra pillow, etc."></textarea>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-outline" onclick="goStep(2)">← Back to Rooms</button>
+        <button class="btn" onclick="validateStep3AndProceed()">Proceed to WhatsApp Payment →</button>
+      </div>
+    </section>
+
+    <!-- STEP 4: WHATSAPP DIRECT REDIRECT & PAYMENT GENERATION -->
+    <section class="pane" id="pane4">
+      <div class="pane-title">Review &amp; Redirect to Owner WhatsApp</div>
+      <div class="pane-desc">Your booking details and automated payment invoice request will be sent directly to the owner on WhatsApp (<strong>8130859152</strong>).</div>
+
+      <div class="bill-summary" id="billSummaryBox"></div>
+
+      <!-- Automated WhatsApp & Payment QR Card -->
+      <div class="whatsapp-box">
+        <div class="whatsapp-box-title">
+          <span>💬 Instant WhatsApp Confirmation &amp; QR Payment Request</span>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">
+          Instead of direct online gateway charges, click below to open owner WhatsApp (+91 81308 59152) with auto-generated booking details, ask for any extra info, and request instant QR payment confirmation.
+        </p>
+
+        <div style="margin-top: 14px;">
+          <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 4px;">Owner WhatsApp Number</label>
+          <input type="text" class="form-control" id="ownerPhoneNum" value="8130859152" style="max-width: 300px; font-weight: 700;">
+        </div>
+
+        <div class="qr-flex">
+          <div>
+            <img id="upiQrCodeImg" class="qr-code-img" src="" alt="Payment UPI QR Code">
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 1rem; color: var(--text-main);">Instant Payment QR Code</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Scan with Google Pay, PhonePe, Paytm or BHIM</div>
+            <div style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-top: 6px;" id="upiIdDisplay">UPI: 8130859152@ybl</div>
+            <a id="directUpiBtn" href="#" class="btn btn-outline" style="padding: 6px 14px; font-size: 0.85rem; margin-top: 8px;">Pay via UPI App</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-outline" onclick="goStep(3)">← Edit Details</button>
+        <button class="btn btn-whatsapp" onclick="sendWhatsAppRequest()">
+          <span style="font-size: 1.3rem;">💬</span> Send Auto Booking Msg &amp; Request Payment on WhatsApp
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 5: CONFIRMATION SUCCESS -->
+    <section class="pane" id="pane5" style="text-align: center;">
+      <div style="font-size: 4rem; margin-bottom: 10px;">🎉</div>
+      <div class="pane-title">Booking Request Generated!</div>
+      <p class="pane-desc">Your reference ID is below. Tap WhatsApp button below if WhatsApp didn't open automatically.</p>
+      
+      <div style="background: var(--primary-light); color: var(--primary); font-weight: 800; font-size: 1.4rem; padding: 10px 20px; border-radius: var(--radius-sm); display: inline-block; letter-spacing: 2px; margin-bottom: 20px;" id="finalRefId">
+        ACTA-XXXXXX
+      </div>
+
+      <div class="bill-summary" id="finalSummaryBox" style="text-align: left;"></div>
+
+      <div class="nav-buttons" style="justify-content: center;">
+        <button class="btn btn-whatsapp" style="max-width: 320px;" onclick="reOpenWhatsApp()">💬 Open Owner WhatsApp</button>
+        <button class="btn btn-outline" onclick="resetBookingForm()">Start New Booking</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Feature Information Cards -->
+  <div class="info-cards-grid">
+    <div class="info-card">
+      <div style="font-size: 1.8rem; margin-bottom: 6px;">📍</div>
+      <div style="font-weight: 700;">Prime Location</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Located conveniently near the main transit hub</div>
+    </div>
+    <div class="info-card">
+      <div style="font-size: 1.8rem; margin-bottom: 6px;">📞</div>
+      <div style="font-weight: 700;">Direct Call</div>
+      <a href="tel:+918130859152" style="font-size: 0.95rem; font-weight: 700; color: var(--primary); text-decoration: none;">+91 81308 59152</a>
+    </div>
+    <div class="info-card">
+      <div style="font-size: 1.8rem; margin-bottom: 6px;">⏰</div>
+      <div style="font-weight: 700;">Check-in / Check-out</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Standard Check-in: 12:00 PM | Check-out: 11:00 AM</div>
+    </div>
+  </div>
+</main>
+
+<!-- Google Authentication Modal -->
+<div class="modal-backdrop" id="googleAuthModal">
+  <div class="modal-card">
+    <div style="width: 54px; height: 54px; background: linear-gradient(135deg, var(--primary), #0284c7); border-radius: 16px; color: white; display: grid; place-items: center; font-size: 1.6rem; font-weight: 800; margin: 0 auto 16px;">
+      A
+    </div>
+    <h3 style="font-size: 1.3rem; font-weight: 800;">Welcome to Arjun Complex</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 6px;">
+      Sign in with Google to pre-fill your details, auto-verify your account, and manage your bookings effortlessly.
+    </p>
+
+    <!-- Google Sign-in Button -->
+    <button class="google-btn" onclick="handleGoogleSignIn()">
+      <svg width="20" height="20" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
+      Or <a href="#" onclick="closeAuthModal(); return false;" style="color: var(--primary); font-weight: 700; text-decoration: none;">Continue as Guest</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CONFIG & DATA */
+const CONFIG = {
+  hotel: "Arjun Complex Transit Accommodation",
+  defaultPhone: "918130859152",
+  upiId: "8130859152@ybl",
+  advancePct: 30
+};
+
+const ROOMS = [
+  { id: "std", name: "Single Room", icon: "🛏️", price: 1200, total: 6, cap: 1, tags: ["Single Bed", "Cooler/Fan", "Attached Bath", "TV"] },
+  { id: "dlx", name: "Double Room (AC)", icon: "❄️", price: 1800, total: 5, cap: 2, tags: ["Double Bed", "Air Conditioned", "Free Wi-Fi", "Hot Water", "TV"] },
+  { id: "fam", name: "Family Suite", icon: "👨‍👩‍👧‍👦", price: 2800, total: 3, cap: 5, tags: ["AC", "2 Queen Beds", "Sofa Seating", "Wi-Fi"] },
+  { id: "dor", name: "Dormitory Bed", icon: "🛌", price: 500, total: 10, cap: 1, tags: ["Personal Locker", "Shared Bath", "Budget Choice"] }
+];
+
+const MON = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/* STATE */
+const state = {
+  ci: null,
+  co: null,
+  viewMonth: new Date(),
+  selectedRooms: {},
+  currentStep: 1,
+  currentUser: null,
+  lastBookingRef: ""
+};
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+state.viewMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+const $ = id => document.getElementById(id);
+const fmt = n => "₹" + n.toLocaleString("en-IN");
+const formatDateStr = d => d ? d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short", year: "numeric" }) : "";
+const getNightsCount = () => Math.round((state.co - state.ci) / 864e5);
+
+function formatPhoneForWhatsApp(num) {
+  let digits = (num || "").trim().replace(/\D/g, "");
+  if (!digits) digits = CONFIG.defaultPhone;
+  if (digits.length === 10) digits = "91" + digits;
+  return digits;
+}
+
+/* INITIALIZATION */
+window.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+  initCalendar();
+  loadStoredUser();
+  
+  // Event Listeners for Cal
+  $("prevMonthBtn").onclick = () => { state.viewMonth.setMonth(state.viewMonth.getMonth() - 1); renderCalendar(); };
+  $("nextMonthBtn").onclick = () => { state.viewMonth.setMonth(state.viewMonth.getMonth() + 1); renderCalendar(); };
+
+  // Show Auth Modal on initial launch if not signed in
+  if (!state.currentUser) {
+    setTimeout(() => {
+      $("googleAuthModal").classList.add("open");
+    }, 600);
+  }
+});
+
+/* THEME ENGINE */
+function initTheme() {
+  const savedTheme = localStorage.getItem("acta_theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeIcon(savedTheme);
+}
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme");
+  const next = current === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("acta_theme", next);
+  updateThemeIcon(next);
+}
+function updateThemeIcon(theme) {
+  $("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
+}
+
+/* GOOGLE AUTH SIMULATION & USER MANAGEMENT */
+function toggleAuthModal() {
+  if (state.currentUser) {
+    if (confirm(`Logged in as ${state.currentUser.name} (${state.currentUser.email}). Sign out?`)) {
+      state.currentUser = null;
+      localStorage.removeItem("acta_user");
+      updateUserUI();
+    }
+  } else {
+    $("googleAuthModal").classList.add("open");
+  }
+}
+function closeAuthModal() {
+  $("googleAuthModal").classList.remove("open");
+}
+function handleGoogleSignIn() {
+  // Simulating standard Google OAuth profile response
+  const demoUsers = [
+    { name: "Rahul Sharma", email: "rahul.sharma@gmail.com", avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80" },
+    { name: "Priya Patel", email: "priya.patel@gmail.com", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" },
+    { name: "Arjun Verma", email: "arjun.verma@gmail.com", avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80" }
+  ];
+  const selected = demoUsers[Math.floor(Math.random() * demoUsers.length)];
+  
+  state.currentUser = selected;
+  localStorage.setItem("acta_user", JSON.stringify(selected));
+  updateUserUI();
+  closeAuthModal();
+
+  // Auto populate in Form
+  $("guestName").value = selected.name;
+  $("guestEmail").value = selected.email;
+}
+function loadStoredUser() {
+  try {
+    const raw = localStorage.getItem("acta_user");
+    if (raw) {
+      state.currentUser = JSON.parse(raw);
+      updateUserUI();
+      $("guestName").value = state.currentUser.name;
+      $("guestEmail").value = state.currentUser.email;
+    }
+  } catch(e) {}
+}
+function updateUserUI() {
+  if (state.currentUser) {
+    $("headerAvatar").innerHTML = `<img src="${state.currentUser.avatar}" style="width:100%;height:100%;border-radius:50%">`;
+    $("headerUserName").textContent = state.currentUser.name.split(" ")[0];
+  } else {
+    $("headerAvatar").textContent = "?";
+    $("headerUserName").textContent = "Sign In";
+  }
+}
+
+/* CALENDAR LOGIC */
+function initCalendar() {
+  $("dowGrid").innerHTML = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map(d => `<div class="dow-cell">${d}</div>`).join("");
+  renderCalendar();
+}
+function renderCalendar() {
+  const v = state.viewMonth;
+  $("monthYearTitle").textContent = MON[v.getMonth()] + " " + v.getFullYear();
+  
+  const firstDay = v.getDay();
+  const totalDays = new Date(v.getFullYear(), v.getMonth() + 1, 0).getDate();
+  
+  let html = "";
+  for (let i = 0; i < firstDay; i++) {
+    html += `<span></span>`;
+  }
+  
+  for (let d = 1; d <= totalDays; d++) {
+    const dateObj = new Date(v.getFullYear(), v.getMonth(), d);
+    const isPast = dateObj < today;
+    const isToday = +dateObj === +today;
+    
+    let btnClass = "day-btn";
+    if (isToday) btnClass += " today";
+    
+    if (state.ci && +dateObj === +state.ci || state.co && +dateObj === +state.co) {
+      btnClass += " selected";
+    } else if (state.ci && state.co && dateObj > state.ci && dateObj < state.co) {
+      btnClass += " in-range";
+    }
+
+    html += `<button class="${btnClass}" data-timestamp="${+dateObj}" ${isPast ? 'disabled' : ''}>${d}</button>`;
+  }
+  
+  $("daysGrid").innerHTML = html;
+  $("prevMonthBtn").disabled = v <= new Date(today.getFullYear(), today.getMonth(), 1);
+  
+  $("checkInText").textContent = state.ci ? formatDateStr(state.ci) : "Select Date";
+  $("checkOutText").textContent = state.co ? formatDateStr(state.co) : "Select Date";
+
+  if (state.ci && state.co) {
+    const n = getNightsCount();
+    $("nightsBadge").textContent = `🗓️ ${n} Night${n > 1 ? 's' : ''} Selected`;
+    $("toStep2Btn").disabled = false;
+  } else if (state.ci) {
+    $("nightsBadge").textContent = "Now select your check-out date";
+    $("toStep2Btn").disabled = true;
+  } else {
+    $("nightsBadge").textContent = "";
+    $("toStep2Btn").disabled = true;
+  }
+
+  // Day Click Event Listener
+  document.querySelectorAll("#daysGrid .day-btn").forEach(btn => {
+    btn.onclick = () => {
+      const selectedDate = new Date(+btn.dataset.timestamp);
+      if (!state.ci || state.co || selectedDate <= state.ci) {
+        state.ci = selectedDate;
+        state.co = null;
+      } else {
+        state.co = selectedDate;
+      }
+      state.selectedRooms = {};
+      renderCalendar();
+    };
+  });
+}
+function clearDates() {
+  state.ci = null;
+  state.co = null;
+  state.selectedRooms = {};
+  renderCalendar();
+}
+
+/* WIZARD NAVIGATION */
+function goStep(stepNum) {
+  if (stepNum === 2 && (!state.ci || !state.co)) return;
+  if (stepNum === 3 && !Object.values(state.selectedRooms).some(v => v > 0)) return;
+  
+  state.currentStep = stepNum;
+  document.querySelectorAll(".pane").forEach((pane, idx) => {
+    pane.classList.toggle("active", idx + 1 === stepNum);
+  });
+  
+  document.querySelectorAll(".step-item").forEach((item, idx) => {
+    item.classList.toggle("active", idx + 1 === stepNum);
+    item.classList.toggle("completed", idx + 1 < stepNum);
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (stepNum === 2) renderRooms();
+  if (stepNum === 4) prepareStep4Summary();
+}
+
+/* ROOM SELECTION */
+function renderRooms() {
+  $("roomSubTitle").textContent = `${formatDateStr(state.ci)} → ${formatDateStr(state.co)} (${getNightsCount()} Nights)`;
+  
+  $("roomsList").innerHTML = ROOMS.map(r => {
+    const qty = state.selectedRooms[r.id] || 0;
+    return `
+      <div class="room-card ${qty > 0 ? 'selected' : ''}" data-roomid="${r.id}">
+        <div class="room-icon">${r.icon}</div>
+        <div class="room-info">
+          <div class="room-title">${r.name}</div>
+          <div class="room-capacity">Up to ${r.cap} guest(s) per room</div>
+          <div class="tag-list">
+            ${r.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div class="room-price-col">
+          <div class="price-tag">${fmt(r.price)}</div>
+          <div class="price-unit">per night</div>
+          <div class="qty-control">
+            <button class="qty-btn" data-action="minus" onclick="changeRoomQty('${r.id}', -1, event)">-</button>
+            <span style="font-weight:700; width:20px; text-align:center;">${qty}</span>
+            <button class="qty-btn" data-action="plus" onclick="changeRoomQty('${r.id}', 1, event)">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  updateToStep3BtnState();
+}
+
+function changeRoomQty(roomId, delta, e) {
+  if (e) e.stopPropagation();
+  const current = state.selectedRooms[roomId] || 0;
+  const next = Math.max(0, current + delta);
+  state.selectedRooms[roomId] = next;
+  renderRooms();
+}
+
+function updateToStep3BtnState() {
+  const hasSelected = Object.values(state.selectedRooms).some(v => v > 0);
+  $("toStep3Btn").disabled = !hasSelected;
+
+  // Max capacity calculation for step 3 guests option
+  const totalCap = ROOMS.reduce((acc, r) => acc + (state.selectedRooms[r.id] || 0) * r.cap, 0);
+  let optionsHtml = "";
+  for (let i = 1; i <= Math.max(totalCap, 1); i++) {
+    optionsHtml += `<option value="${i}">${i} Guest${i > 1 ? 's' : ''}</option>`;
+  }
+  $("guestCount").innerHTML = optionsHtml;
+}
+
+/* STEP 3 VALIDATION */
+function validateStep3AndProceed() {
+  const name = $("guestName").value.trim();
+  const phone = $("guestPhone").value.trim();
+  const reason = $("stayReason").value;
+  const idType = $("idType").value;
+  const idNum = $("idNumber").value.trim();
+
+  let valid = true;
+  
+  if (name.length < 2) { $("guestName").classList.add("is-invalid"); valid = false; } else $("guestName").classList.remove("is-invalid");
+  if (!/^[6-9]\d{9}$/.test(phone)) { $("guestPhone").classList.add("is-invalid"); valid = false; } else $("guestPhone").classList.remove("is-invalid");
+  if (!reason) { $("stayReason").classList.add("is-invalid"); valid = false; } else $("stayReason").classList.remove("is-invalid");
+  if (!idType) { $("idType").classList.add("is-invalid"); valid = false; } else $("idType").classList.remove("is-invalid");
+  if (idNum.length < 2) { $("idNumber").classList.add("is-invalid"); valid = false; } else $("idNumber").classList.remove("is-invalid");
+
+  if (!valid) {
+    alert("Please fill all required fields correctly (10-digit mobile number starting with 6-9 is required).");
+    return;
+  }
+
+  goStep(4);
+}
+
+/* STEP 4 SUMMARY & PAYMENT QR GENERATION */
+function calculateTotalBill() {
+  const nights = getNightsCount();
+  let subtotal = 0;
+  const roomBreakdown = [];
+  
+  ROOMS.forEach(r => {
+    const q = state.selectedRooms[r.id] || 0;
+    if (q > 0) {
+      const lineCost = q * r.price * nights;
+      subtotal += lineCost;
+      roomBreakdown.push({ name: r.name, qty: q, lineCost });
+    }
+  });
+
+  const advanceReq = Math.round(subtotal * CONFIG.advancePct / 100);
+  const balanceAtCheckin = subtotal - advanceReq;
+
+  return { subtotal, nights, roomBreakdown, advanceReq, balanceAtCheckin };
+}
+
+function prepareStep4Summary() {
+  const bill = calculateTotalBill();
+  
+  let html = `
+    <div class="bill-row"><span>Guest Name:</span> <strong>${$("guestName").value}</strong></div>
+    <div class="bill-row"><span>Mobile / WhatsApp:</span> <strong>${$("guestPhone").value}</strong></div>
+    <div class="bill-row"><span>Check-in:</span> <strong>${formatDateStr(state.ci)}</strong></div>
+    <div class="bill-row"><span>Check-out:</span> <strong>${formatDateStr(state.co)} (${bill.nights} Nights)</strong></div>
+  `;
+
+  bill.roomBreakdown.forEach(rb => {
+    html += `<div class="bill-row"><span>${rb.qty}x ${rb.name}</span> <span>${fmt(rb.lineCost)}</span></div>`;
+  });
+
+  html += `
+    <div class="bill-row total"><span>Total Stay Amount:</span> <span>${fmt(bill.subtotal)}</span></div>
+    <div class="bill-row" style="color:var(--primary); font-weight:700;"><span>Advance Deposit (${CONFIG.advancePct}%):</span> <span>${fmt(bill.advanceReq)}</span></div>
+    <div class="bill-row" style="color:var(--text-muted);"><span>Balance Payable at Check-in:</span> <span>${fmt(bill.balanceAtCheckin)}</span></div>
+  `;
+
+  $("billSummaryBox").innerHTML = html;
+
+  // Generate Payment QR via API
+  const upiUrl = `upi://pay?pa=${CONFIG.upiId}&pn=${encodeURIComponent(CONFIG.hotel)}&am=${bill.advanceReq}&cu=INR`;
+  const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
+  $("upiQrCodeImg").src = qrApi;
+  $("directUpiBtn").href = upiUrl;
+  $("upiIdDisplay").textContent = `UPI ID: ${CONFIG.upiId} (Advance: ${fmt(bill.advanceReq)})`;
+}
+
+/* WHATSAPP AUTOMATED MESSAGE GENERATION & REDIRECT */
+function buildWhatsAppMessage(refId) {
+  const bill = calculateTotalBill();
+  const roomsText = bill.roomBreakdown.map(rb => `  • ${rb.qty}x ${rb.name}`).join('\n');
+  const isGoogleUser = state.currentUser ? " (Verified Google User)" : "";
+
+  return `🏨 *NEW BOOKING REQUEST - ${CONFIG.hotel}*
+🔖 *Ref ID:* ${refId}
+
+👤 *GUEST INFORMATION:*
+• Name: ${$("guestName").value}${isGoogleUser}
+• Mobile: ${$("guestPhone").value}
+• Email: ${$("guestEmail").value || "N/A"}
+• Guests: ${$("guestCount").value} Person(s)
+• Reason: ${$("stayReason").value}
+• ID Proof: ${$("idType").value} (${$("idNumber").value})
+• Expected Arrival: ${$("etaTime").value || "14:00"}
+
+📅 *STAY DATES & ROOMS:*
+• Check-in: ${formatDateStr(state.ci)}
+• Check-out: ${formatDateStr(state.co)} (${bill.nights} Night/s)
+• Rooms Booked:
+${roomsText}
+
+💰 *BILL BREAKDOWN:*
+• Total Stay Amount: ${fmt(bill.subtotal)}
+• Advance Deposit Required (${CONFIG.advancePct}%): ${fmt(bill.advanceReq)}
+• Payable at Check-in: ${fmt(bill.balanceAtCheckin)}
+
+💬 *REQUEST TO OWNER:*
+"Hello! I am sending this booking request from the website. Please confirm room availability, verify my details, and share payment confirmation for advance amount ${fmt(bill.advanceReq)}." ${$("specialNotes").value ? "\n\n📝 *Note:* " + $("specialNotes").value : ""}`;
+}
+
+function sendWhatsAppRequest() {
+  const ownerNum = formatPhoneForWhatsApp($("ownerPhoneNum").value);
+  const refId = "ACTA-" + Date.now().toString(36).toUpperCase().slice(-6);
+  state.lastBookingRef = refId;
+
+  const msgText = buildWhatsAppMessage(refId);
+  const waUrl = `https://wa.me/${ownerNum}?text=${encodeURIComponent(msgText)}`;
+
+  // Set step 5 summary
+  $("finalRefId").textContent = refId;
+  $("finalSummaryBox").innerHTML = $("billSummaryBox").innerHTML;
+
+  // Open WhatsApp in new tab
+  window.open(waUrl, "_blank");
+
+  // Move to step 5 confirmation
+  goStep(5);
+}
+
+function reOpenWhatsApp() {
+  const ownerNum = formatPhoneForWhatsApp($("ownerPhoneNum").value);
+  const msgText = buildWhatsAppMessage(state.lastBookingRef);
+  window.open(`https://wa.me/${ownerNum}?text=${encodeURIComponent(msgText)}`, "_blank");
+}
+
+function resetBookingForm() {
+  clearDates();
+  state.selectedRooms = {};
+  state.lastBookingRef = "";
+  $("specialNotes").value = "";
+  goStep(1);
+}
+</script>
+</body>
+</html>
