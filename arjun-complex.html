@@ -849,7 +849,8 @@ main {
         </div>
         <div class="form-group">
           <label>Total Guests *</label>
-          <select class="form-control" id="guestCount"></select>
+          <select class="form-control" id="guestCount" onchange="handleGuestCountChange()"></select>
+          <div id="autoRoomNotice" style="font-size:0.8rem; font-weight:700; color:var(--primary); margin-top:4px;"></div>
         </div>
         <div class="form-group">
           <label>Reason of Stay *</label>
@@ -1296,13 +1297,65 @@ function updateToStep3BtnState() {
   const hasSelected = Object.values(state.selectedRooms).some(v => v > 0);
   $("toStep3Btn").disabled = !hasSelected;
 
-  // Max capacity calculation for step 3 guests option
-  const totalCap = ROOMS.reduce((acc, r) => acc + (state.selectedRooms[r.id] || 0) * r.cap, 0);
+  const totalAvailCap = ROOMS.reduce((acc, r) => acc + getAvailCount(r) * r.cap, 0);
+  const currentSelectedCap = ROOMS.reduce((acc, r) => acc + (state.selectedRooms[r.id] || 0) * r.cap, 0);
+  
+  const currentVal = parseInt($("guestCount").value) || currentSelectedCap || 1;
   let optionsHtml = "";
-  for (let i = 1; i <= Math.max(totalCap, 1); i++) {
+  for (let i = 1; i <= Math.min(30, totalAvailCap); i++) {
     optionsHtml += `<option value="${i}">${i} Guest${i > 1 ? 's' : ''}</option>`;
   }
   $("guestCount").innerHTML = optionsHtml;
+  $("guestCount").value = Math.min(currentVal, Math.max(1, totalAvailCap));
+
+  updateAutoRoomNotice();
+}
+
+function handleGuestCountChange() {
+  const neededGuests = parseInt($("guestCount").value) || 1;
+  let currentCap = ROOMS.reduce((acc, r) => acc + (state.selectedRooms[r.id] || 0) * r.cap, 0);
+  
+  if (neededGuests > currentCap) {
+    let deficiency = neededGuests - currentCap;
+    
+    // Auto allocate Double Rooms (AC) first
+    const dlxRoom = ROOMS.find(r => r.id === "dlx");
+    const dlxAvail = getAvailCount(dlxRoom);
+    let dlxSel = state.selectedRooms["dlx"] || 0;
+    
+    while (deficiency > 0 && dlxSel < dlxAvail) {
+      dlxSel++;
+      state.selectedRooms["dlx"] = dlxSel;
+      deficiency -= dlxRoom.cap;
+    }
+    
+    // Auto allocate Single Rooms if still deficient
+    const stdRoom = ROOMS.find(r => r.id === "std");
+    const stdAvail = getAvailCount(stdRoom);
+    let stdSel = state.selectedRooms["std"] || 0;
+    
+    while (deficiency > 0 && stdSel < stdAvail) {
+      stdSel++;
+      state.selectedRooms["std"] = stdSel;
+      deficiency -= stdRoom.cap;
+    }
+    
+    renderRooms();
+  } else {
+    updateAutoRoomNotice();
+  }
+}
+
+function updateAutoRoomNotice() {
+  const selectedSummary = ROOMS.filter(r => (state.selectedRooms[r.id] || 0) > 0)
+    .map(r => `${state.selectedRooms[r.id]}x ${r.name}`)
+    .join(", ");
+  const currentCap = ROOMS.reduce((acc, r) => acc + (state.selectedRooms[r.id] || 0) * r.cap, 0);
+  
+  const el = $("autoRoomNotice");
+  if (el) {
+    el.textContent = `🏠 Reserved: ${selectedSummary || 'None'} (Capacity: ${currentCap} Guests)`;
+  }
 }
 
 /* STEP 3 VALIDATION */
